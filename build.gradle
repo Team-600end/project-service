@@ -60,6 +60,11 @@ dependencies {
 
     //JSON
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+
+    // Config Server
+    // Spring Cloud Config Client
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
 }
 
 dependencyManagement {

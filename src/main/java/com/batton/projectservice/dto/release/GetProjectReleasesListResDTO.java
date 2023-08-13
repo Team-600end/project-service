@@ -9,18 +9,17 @@ import java.util.List;
 
 @Getter
 public class GetProjectReleasesListResDTO {
+    private Long releasesId;
     private String versionChanged;
     private int versionMajor;
     private int versionMinor;
     private int versionPatch;
     private String createdDate;
-//    private List<Long> issueList;
-//    private List<Issue> issueList;
-//    private List<ReleaseIssueListResDTO> issueList;
     private List<GetReleasesIssueResDTO> issueList;
 
     @Builder
-    public GetProjectReleasesListResDTO(String versionChanged, int versionMajor, int versionMinor, int versionPatch, String createdDate, List<GetReleasesIssueResDTO> issueList) {
+    public GetProjectReleasesListResDTO(Long releasesId, String versionChanged, int versionMajor, int versionMinor, int versionPatch, String createdDate, List<GetReleasesIssueResDTO> issueList) {
+        this.releasesId = releasesId;
         this.versionChanged = versionChanged;
         this.versionMajor = versionMajor;
         this.versionMinor = versionMinor;
@@ -29,8 +28,9 @@ public class GetProjectReleasesListResDTO {
         this.issueList = issueList;
     }
 
-    public static GetProjectReleasesListResDTO toDTO(String versionChanged, int versionMajor, int versionMinor, int versionPatch, String createdDate, List<GetReleasesIssueResDTO> issueList) {
+    public static GetProjectReleasesListResDTO toDTO(Long releasesId, String versionChanged, int versionMajor, int versionMinor, int versionPatch, String createdDate, List<GetReleasesIssueResDTO> issueList) {
         return GetProjectReleasesListResDTO.builder()
+                .releasesId(releasesId)
                 .versionChanged(versionChanged)
                 .versionMajor(versionMajor)
                 .versionMinor(versionMinor)

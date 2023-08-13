@@ -35,6 +35,8 @@ public class ReportServiceTests {
     private CommentRepository commentRepository;
     @Mock
     private IssueRepository issueRepository;
+    @Mock
+    private RabbitProducer rabbitProducer;
 
     @Test
     @DisplayName("이슈 레포트 조회 성공")

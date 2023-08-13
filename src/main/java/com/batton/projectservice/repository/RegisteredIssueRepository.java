@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface RegisteredIssueRepository extends JpaRepository<RegisteredIssue, Long> {
 
     Optional<List<RegisteredIssue>> findByReleasesId(Long releaseId);
+
+    void deleteAllByReleasesId(Long releaseId);
 }

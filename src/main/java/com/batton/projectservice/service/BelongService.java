@@ -70,7 +70,7 @@ public class BelongService {
      * */
     @Transactional
     public List<GetBelongResDTO> getBelongList(Long memberId, Long projectId) {
-        List<Belong> belongList = belongRepository.findBelongsByProjectId(projectId, memberId);
+        List<Belong> belongList = belongRepository.findBelongByProjectId(projectId);
         List<GetBelongResDTO> getBelongResDTOList = new ArrayList<>();
 
         for (Belong belong : belongList) {
