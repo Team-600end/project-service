@@ -8,3 +8,6 @@ spring:
     config:
       name: project-service
       profile: config
+
+  main:
+    allow-bean-definition-overriding: true
