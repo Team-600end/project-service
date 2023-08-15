@@ -2,12 +2,18 @@ server:
   port: 8082
 
 spring:
+  application:
+    name: project-service
+  profiles:
+    active: config
   config:
     import: "optional:configserver:http://10.0.16.245:8888/"
-  cloud:
-    config:
-      name: project-service
-      profile: config
 
   main:
     allow-bean-definition-overriding: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

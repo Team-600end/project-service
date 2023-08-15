@@ -65,6 +65,10 @@ dependencies {
     // Spring Cloud Config Client
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
+
+    //Monitoring
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+    implementation 'io.micrometer:micrometer-core'
 }
 
 dependencyManagement {
