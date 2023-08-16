@@ -3,7 +3,6 @@ package com.batton.projectservice.dto.issue;
 import com.batton.projectservice.enums.IssueStatus;
 import lombok.Builder;
 import lombok.Getter;
-
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 

@@ -30,7 +30,8 @@ public class ReportController {
             @ApiResponse(responseCode = "703", description = "소속 아이디 값을 확인해주세요."),
             @ApiResponse(responseCode = "704", description = "이슈 아이디 값을 확인해주세요."),
     })
-    private BaseResponse<GetIssueReportResDTO> getReport(@RequestHeader Long memberId, @PathVariable("issueId") Long issueId) {
+    private BaseResponse<GetIssueReportResDTO> getReport(@RequestHeader Long memberId,
+                                                         @PathVariable("issueId") Long issueId) {
         GetIssueReportResDTO getIssueReportResDTO = reportService.getReport(memberId, issueId);
 
         return new BaseResponse<>(getIssueReportResDTO);
@@ -50,7 +51,9 @@ public class ReportController {
             @ApiResponse(responseCode = "704", description = "이슈 아이디 값을 확인해주세요."),
             @ApiResponse(responseCode = "705", description = "이슈 레포트 아이디 값을 확인해주세요.")
     })
-    private BaseResponse<String> patchReport(@RequestHeader Long memberId, @PathVariable("issueId") Long issueId, @RequestBody PatchIssueReportReqDTO patchIssueReportReqDTO) {
+    private BaseResponse<String> patchReport(@RequestHeader Long memberId,
+                                             @PathVariable("issueId") Long issueId,
+                                             @RequestBody PatchIssueReportReqDTO patchIssueReportReqDTO) {
         String patchReportRes = reportService.patchReport(memberId, issueId, patchIssueReportReqDTO);
 
         return new BaseResponse<>(patchReportRes);
@@ -70,7 +73,9 @@ public class ReportController {
             @ApiResponse(responseCode = "703", description = "소속 아이디 값을 확인해주세요."),
             @ApiResponse(responseCode = "704", description = "이슈 아이디 값을 확인해주세요.")
     })
-    private BaseResponse<String> postComment(@RequestHeader Long memberId, @PathVariable("issueId") Long issueId, @RequestBody PostCommentReqDTO postCommentReqDTO) {
+    private BaseResponse<String> postComment(@RequestHeader Long memberId,
+                                             @PathVariable("issueId") Long issueId,
+                                             @RequestBody PostCommentReqDTO postCommentReqDTO) {
         String postCommentRes = reportService.postComment(issueId, memberId, postCommentReqDTO);
 
         return new BaseResponse<>(postCommentRes);

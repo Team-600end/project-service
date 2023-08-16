@@ -6,8 +6,6 @@ import com.batton.projectservice.domain.Releases;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.List;
-
 @Getter
 public class PostRegisteredIssueReqDTO {
     private int startPosisition;

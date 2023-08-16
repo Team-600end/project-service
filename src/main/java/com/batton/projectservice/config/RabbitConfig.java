@@ -29,7 +29,6 @@ public class RabbitConfig {
 
     /**
      * 지정된 큐 이름으로 Queue 빈을 생성
-     *
      * @return Queue 빈
      */
     @Bean
@@ -39,7 +38,6 @@ public class RabbitConfig {
 
     /**
      * 지정된 토픽 이름으로 TopicExchange 빈 생성
-     *
      * @return TopicExchange 빈
      */
     @Bean
@@ -53,7 +51,6 @@ public class RabbitConfig {
      * @param topicExchange 바인딩 할 TopicExchange
      * @return Binding 빈
      */
-
     @Bean
     public Binding binding(TopicExchange topicExchange, Queue queue) {
         return BindingBuilder.bind(queue).to(topicExchange).with(ROUTING_KEY);
@@ -67,6 +64,7 @@ public class RabbitConfig {
     @Bean
     public ConnectionFactory connectionFactory() {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
+
         connectionFactory.setHost(host);
         connectionFactory.setPort(port);
         connectionFactory.setUsername(username);
@@ -83,6 +81,7 @@ public class RabbitConfig {
     @Bean
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
+
         // JSON 형식의 메시지를 직렬화하고 역직렬할 수 있도록 설정
         rabbitTemplate.setMessageConverter(jsonMessageConverter());
 
@@ -91,7 +90,6 @@ public class RabbitConfig {
 
     /**
      * Jackson 라이브러리를 사용하여 메시지를 JSON 형식으로 변환하는 MessageConverter 빈 생성
-     *
      * @return MessageConverter 객체
      */
     @Bean

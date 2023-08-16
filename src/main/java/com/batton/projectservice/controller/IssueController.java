@@ -30,7 +30,8 @@ public class IssueController {
             @ApiResponse(responseCode = "701", description = "프로젝트 아이디 값을 확인해주세요."),
             @ApiResponse(responseCode = "703", description = "소속 아이디 값을 확인해주세요.")
     })
-    public BaseResponse<Long> postIssue(@RequestHeader Long memberId, @RequestBody PostIssueReqDTO postIssueReqDTO) {
+    public BaseResponse<Long> postIssue(@RequestHeader Long memberId,
+                                        @RequestBody PostIssueReqDTO postIssueReqDTO) {
         Long postIssueRes = issueService.postIssue(memberId, postIssueReqDTO);
 
         return new BaseResponse<>(postIssueRes);
@@ -50,7 +51,9 @@ public class IssueController {
             @ApiResponse(responseCode = "703", description = "소속 아이디 값을 확인해주세요."),
             @ApiResponse(responseCode = "704", description = "이슈 아이디 값을 확인해주세요.")
     })
-    private BaseResponse<String> patchIssueBoard(@RequestHeader Long memberId, @PathVariable("issueId") Long issueId, @RequestBody PatchIssueBoardReqDTO patchIssueBoardReqDTO) {
+    private BaseResponse<String> patchIssueBoard(@RequestHeader Long memberId,
+                                                 @PathVariable("issueId") Long issueId,
+                                                 @RequestBody PatchIssueBoardReqDTO patchIssueBoardReqDTO) {
         String patchIssueBoardRes = issueService.patchIssueBoard(memberId, issueId, patchIssueBoardReqDTO);
 
         return new BaseResponse<>(patchIssueBoardRes);
@@ -68,7 +71,8 @@ public class IssueController {
             @ApiResponse(responseCode = "701", description = "프로젝트 아이디 값을 확인해주세요."),
             @ApiResponse(responseCode = "703", description = "소속 아이디 값을 확인해주세요.")
     })
-    private BaseResponse<GetIssueBoardResDTO> getIssueBoard(@RequestHeader Long memberId, @PathVariable("projectId") Long projectId) {
+    private BaseResponse<GetIssueBoardResDTO> getIssueBoard(@RequestHeader Long memberId,
+                                                            @PathVariable("projectId") Long projectId) {
         GetIssueBoardResDTO getIssueBoardResDTO = issueService.getIssueBoard(memberId, projectId);
 
         return new BaseResponse<>(getIssueBoardResDTO);
@@ -86,7 +90,8 @@ public class IssueController {
             @ApiResponse(responseCode = "701", description = "프로젝트 아이디 값을 확인해주세요."),
             @ApiResponse(responseCode = "703", description = "소속 아이디 값을 확인해주세요.")
     })
-    private BaseResponse<GetIssueChartResDTO> getIssueChart(@RequestHeader Long memberId, @PathVariable("projectId") Long projectId) {
+    private BaseResponse<GetIssueChartResDTO> getIssueChart(@RequestHeader Long memberId,
+                                                            @PathVariable("projectId") Long projectId) {
         GetIssueChartResDTO getIssueChartResDTO = issueService.getIssueChart(memberId, projectId);
 
         return new BaseResponse<>(getIssueChartResDTO);
@@ -106,7 +111,9 @@ public class IssueController {
             @ApiResponse(responseCode = "703", description = "소속 아이디 값을 확인해주세요."),
             @ApiResponse(responseCode = "704", description = "이슈 아이디 값을 확인해주세요.")
     })
-    private BaseResponse<List<GetMyIssueResDTO>> getMyIssue(@RequestHeader Long memberId, @RequestParam(value = "status", required = false) IssueStatus issueStatus, @RequestParam(value = "keyword", required = false) String keyword) {
+    private BaseResponse<List<GetMyIssueResDTO>> getMyIssue(@RequestHeader Long memberId,
+                                                            @RequestParam(value = "status", required = false) IssueStatus issueStatus,
+                                                            @RequestParam(value = "keyword", required = false) String keyword) {
         List<GetMyIssueResDTO> getMyIssueResDTOList = issueService.getMyIssue(memberId, issueStatus, keyword);
 
         return new BaseResponse<>(getMyIssueResDTOList);
@@ -124,7 +131,8 @@ public class IssueController {
             @ApiResponse(responseCode = "703", description = "소속 아이디 값을 확인해주세요."),
             @ApiResponse(responseCode = "704", description = "이슈 아이디 값을 확인해주세요.")
     })
-    private BaseResponse<GetIssueInfoResDTO> getIssueInfo(@RequestHeader Long memberId, @PathVariable("issueId") Long issueId) {
+    private BaseResponse<GetIssueInfoResDTO> getIssueInfo(@RequestHeader Long memberId,
+                                                          @PathVariable("issueId") Long issueId) {
         GetIssueInfoResDTO getIssueInfoResDTO = issueService.getIssueInfo(memberId, issueId);
 
         return new BaseResponse<>(getIssueInfoResDTO);
@@ -137,8 +145,8 @@ public class IssueController {
     @GetMapping("/reports/{issueId}")
     @Operation(summary = "이슈 조회 페이지 조회")
     @ApiResponse(responseCode = "704", description = "이슈 아이디 값을 확인해주세요.")
-    private BaseResponse<GetIssueReportResDTO> getIssueReport(@PathVariable("issueId") Long issueId) {
-        GetIssueReportResDTO getIssueReportResDTO = issueService.getIssueReport(issueId);
+    private BaseResponse<GetIssueReportResDTO> getIssueReport(@RequestHeader Long memberId, @PathVariable("issueId") Long issueId) {
+        GetIssueReportResDTO getIssueReportResDTO = issueService.getIssueReport(memberId, issueId);
 
         return new BaseResponse<>(getIssueReportResDTO);
     }
@@ -155,7 +163,8 @@ public class IssueController {
             @ApiResponse(responseCode = "703", description = "소속 아이디 값을 확인해주세요."),
             @ApiResponse(responseCode = "704", description = "이슈 아이디 값을 확인해주세요.")
     })
-    private BaseResponse<List<GetIssueResDTO>> getIssueList(@RequestHeader Long memberId, @PathVariable("projectId") Long projectId) {
+    private BaseResponse<List<GetIssueResDTO>> getIssueList(@RequestHeader Long memberId,
+                                                            @PathVariable("projectId") Long projectId) {
         List<GetIssueResDTO> getIssueResDTOList = issueService.getIssueList(memberId, projectId);
 
         return new BaseResponse<>(getIssueResDTOList);
@@ -173,7 +182,8 @@ public class IssueController {
             @ApiResponse(responseCode = "703", description = "소속 아이디 값을 확인해주세요."),
             @ApiResponse(responseCode = "704", description = "이슈 아이디 값을 확인해주세요.")
     })
-    private BaseResponse<List<GetIssueResDTO>> getIssueHistory(@RequestHeader Long memberId, @PathVariable("projectId") Long projectId) {
+    private BaseResponse<List<GetIssueResDTO>> getIssueHistory(@RequestHeader Long memberId,
+                                                               @PathVariable("projectId") Long projectId) {
         List<GetIssueResDTO> getIssueResDTOList = issueService.getIssueHistory(memberId, projectId);
 
         return new BaseResponse<>(getIssueResDTOList);
@@ -193,7 +203,9 @@ public class IssueController {
             @ApiResponse(responseCode = "703", description = "소속 아이디 값을 확인해주세요."),
             @ApiResponse(responseCode = "704", description = "이슈 아이디 값을 확인해주세요.")
     })
-    private BaseResponse<String> patchIssue(@RequestHeader Long memberId, @PathVariable("issueId") Long issueId, @RequestBody PatchIssueReqDTO patchIssueReqDTO) {
+    private BaseResponse<String> patchIssue(@RequestHeader Long memberId,
+                                            @PathVariable("issueId") Long issueId,
+                                            @RequestBody PatchIssueReqDTO patchIssueReqDTO) {
         String patchIssueRes = issueService.patchIssue(memberId, issueId, patchIssueReqDTO);
 
         return new BaseResponse<>(patchIssueRes);
@@ -212,7 +224,8 @@ public class IssueController {
             @ApiResponse(responseCode = "703", description = "소속 아이디 값을 확인해주세요."),
             @ApiResponse(responseCode = "704", description = "이슈 아이디 값을 확인해주세요.")
     })
-    private BaseResponse<GetModifyIssueResDTO> getModifyIssue(@RequestHeader Long memberId, @PathVariable("issueId") Long issueId) {
+    private BaseResponse<GetModifyIssueResDTO> getModifyIssue(@RequestHeader Long memberId,
+                                                              @PathVariable("issueId") Long issueId) {
         GetModifyIssueResDTO getModifyIssueResDTO = issueService.getModifyIssue(memberId, issueId);
 
         return new BaseResponse<>(getModifyIssueResDTO);
@@ -230,7 +243,8 @@ public class IssueController {
             @ApiResponse(responseCode = "703", description = "소속 아이디 값을 확인해주세요."),
             @ApiResponse(responseCode = "704", description = "이슈 아이디 값을 확인해주세요.")
     })
-    private BaseResponse<String> deleteIssue(@RequestHeader Long memberId, @PathVariable("issueId") Long issueId) {
+    private BaseResponse<String> deleteIssue(@RequestHeader Long memberId,
+                                             @PathVariable("issueId") Long issueId) {
         String deleteIssueRes = issueService.deleteIssue(memberId, issueId);
 
         return new BaseResponse<>(deleteIssueRes);
@@ -243,22 +257,20 @@ public class IssueController {
      */
     @GetMapping("/{projectId}/done-list")
     @Operation(summary = "완료된 이슈 목록 조회")
-    private BaseResponse<List<GetIssueResDTO>> getDoneIssue(@PathVariable("projectId") Long projectId) {
-        List<GetIssueResDTO> getIssueResDTOList = issueService.getDoneIssue(projectId);
+    private BaseResponse<List<GetIssueResDTO>> getDoneIssue(@RequestHeader Long memberId, @PathVariable("projectId") Long projectId) {
+        List<GetIssueResDTO> getIssueResDTOList = issueService.getDoneIssue(memberId, projectId);
 
         return new BaseResponse<>(getIssueResDTOList);
     }
 
     /**
      * 이슈 바톤 터치 API
-     * @param memberId 바톤 터치를 수행하는 유저
      * @param issueId 바톤 터치 이슈
      * @return String
      */
     @PostMapping("/{issueId}")
     @Operation(summary = "이슈 바톤 터치")
-    private BaseResponse<String> postBattonTouch(@RequestHeader Long memberId,
-                                                 @PathVariable("issueId") Long issueId,
+    private BaseResponse<String> postBattonTouch(@PathVariable("issueId") Long issueId,
                                                  @RequestBody PostBattonTouchReqDTO postBattonTouchReqDTO) {
         String result = issueService.postBattonTouch(issueId, postBattonTouchReqDTO);
 

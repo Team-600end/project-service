@@ -106,7 +106,9 @@ public class ReportService {
                 throw new BaseException(MEMBER_NO_AUTHORITY);
             }
             Comment comment = postCommentReqDTO.toEntity(postCommentReqDTO, belong.get(), report.get());
+
             commentRepository.save(comment);
+
             rabbitProducer.sendNoticeMessage(
                     NoticeMessage.builder()
                             .projectId(belong.get().getProject().getId())
@@ -134,6 +136,7 @@ public class ReportService {
         if (report.isPresent()) {
             String issueTitle = issueRepository.findById(issueId).get().getIssueTitle();
             GetAddReportResDTO getAddReport = GetAddReportResDTO.toDTO(report.get(), issueTitle);
+
             return getAddReport;
         } else {
             throw new BaseException(ISSUE_REPORT_INVALID_ID);

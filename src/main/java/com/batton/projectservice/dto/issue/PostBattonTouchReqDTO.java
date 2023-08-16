@@ -1,6 +1,5 @@
 package com.batton.projectservice.dto.issue;
 
-import com.batton.projectservice.enums.IssueStatus;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

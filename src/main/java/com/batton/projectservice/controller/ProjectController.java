@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -25,7 +24,8 @@ public class ProjectController {
      * */
     @PostMapping
     @Operation(summary = "프로젝트 생성")
-    private BaseResponse<PostProjectResDTO> postProject(@RequestHeader Long memberId, @RequestBody PostProjectReqDTO postProjectReqDTO) {
+    private BaseResponse<PostProjectResDTO> postProject(@RequestHeader Long memberId,
+                                                        @RequestBody PostProjectReqDTO postProjectReqDTO) {
         PostProjectResDTO postProjectRes = projectService.postProject(memberId, postProjectReqDTO);
 
         return new BaseResponse<>(postProjectRes);
@@ -40,7 +40,7 @@ public class ProjectController {
     @ApiResponses({
             @ApiResponse(responseCode = "708", description = "중복된 프로젝트 키입니다.")
     })
-    private BaseResponse<String> getCheckKey(@PathVariable("projectKey") String projectKey){
+    private BaseResponse<String> getCheckKey(@PathVariable("projectKey") String projectKey) {
         String check = projectService.getCheckKey(projectKey);
 
         return new BaseResponse<>(check);
@@ -60,7 +60,9 @@ public class ProjectController {
             @ApiResponse(responseCode = "701", description = "프로젝트 아이디 값을 확인해주세요."),
             @ApiResponse(responseCode = "703", description = "소속 아이디 값을 확인해주세요.")
     })
-    private BaseResponse<String> patchProject(@RequestHeader Long memberId, @PathVariable("projectId") Long projectId, @RequestBody PatchProjectReqDTO patchProjectReqDTO) {
+    private BaseResponse<String> patchProject(@RequestHeader Long memberId,
+                                              @PathVariable("projectId") Long projectId,
+                                              @RequestBody PatchProjectReqDTO patchProjectReqDTO) {
         String patchProjectRes = projectService.patchProject(memberId, projectId, patchProjectReqDTO);
 
         return new BaseResponse<>(patchProjectRes);
@@ -79,7 +81,8 @@ public class ProjectController {
             @ApiResponse(responseCode = "701", description = "프로젝트 아이디 값을 확인해주세요."),
             @ApiResponse(responseCode = "703", description = "소속 아이디 값을 확인해주세요.")
     })
-    private BaseResponse<String> deleteProject(@RequestHeader Long memberId, @PathVariable("projectId") Long projectId) {
+    private BaseResponse<String> deleteProject(@RequestHeader Long memberId,
+                                               @PathVariable("projectId") Long projectId) {
         String deleteProjectRes = projectService.deleteProject(memberId, projectId);
 
         return new BaseResponse<>(deleteProjectRes);
@@ -97,7 +100,8 @@ public class ProjectController {
             @ApiResponse(responseCode = "701", description = "프로젝트 아이디 값을 확인해주세요."),
             @ApiResponse(responseCode = "703", description = "소속 아이디 값을 확인해주세요.")
     })
-    private BaseResponse<GetProjectInfoResDTO> getProject(@RequestHeader Long memberId, @PathVariable("projectId") Long projectId) {
+    private BaseResponse<GetProjectInfoResDTO> getProject(@RequestHeader Long memberId,
+                                                          @PathVariable("projectId") Long projectId) {
         GetProjectInfoResDTO getProjectInfoResDTO = projectService.getProject(memberId, projectId);
 
         return new BaseResponse<>(getProjectInfoResDTO);
@@ -133,22 +137,19 @@ public class ProjectController {
         List<GetJoinedProjectListResDTO> getJoinedProjectListResDTOList = projectService.getJoinedProjectList(memberId);
 
         return new BaseResponse<>(getJoinedProjectListResDTOList);
-
     }
 
     /**
-     * 프로젝트 목록 검색 조회 API
-     * @param memberId 프로젝트 조회 작업을하는 유저 아이디
-     * @param keyword 조회할 프로젝트 명
+     * 프로젝트 목록  조회 API
      * @return List<GetProjectListResDTO>
      */
     @GetMapping("/list")
-    @Operation(summary = "프로젝트 목록 검색 조회")
+    @Operation(summary = "프로젝트 목록 조회")
     @ApiResponses({
             @ApiResponse(responseCode = "600", description = "유저 아이디 값을 확인해주세요.")
     })
-    private BaseResponse<List<GetProjectListResDTO>> getProjectList(@RequestHeader Long memberId,  @RequestParam(value = "keyword", required = false) String keyword) {
-        List<GetProjectListResDTO> getProjectListResDTOList = projectService.getProjectList(keyword);
+    private BaseResponse<List<GetProjectListResDTO>> getProjectList() {
+        List<GetProjectListResDTO> getProjectListResDTOList = projectService.getProjectList();
 
         return new BaseResponse<>(getProjectListResDTOList);
     }

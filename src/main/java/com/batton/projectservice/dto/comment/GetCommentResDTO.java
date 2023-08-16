@@ -6,7 +6,6 @@ import com.batton.projectservice.enums.CommentType;
 import com.batton.projectservice.enums.GradeType;
 import lombok.Builder;
 import lombok.Getter;
-
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 

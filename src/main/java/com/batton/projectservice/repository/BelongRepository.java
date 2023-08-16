@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -23,10 +22,6 @@ public interface BelongRepository extends JpaRepository<Belong, Long> {
 
     List<Belong> findByProjectId(Long projectId);
 
-//    @Query("SELECT b FROM Belong b WHERE b.projectId = :projectId")
-//    List<Belong> findByProjectId(@Param("projectId") Long projectId);
-
     @Query("SELECT b FROM Belong b WHERE b.project.id = :projectId AND b.grade = :type")
     List<Belong> findLeader(@Param("projectId") Long projectId, @Param("type") GradeType type);
-
 }

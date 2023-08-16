@@ -4,7 +4,6 @@ import com.batton.projectservice.domain.Project;
 import com.batton.projectservice.enums.GradeType;
 import lombok.Builder;
 import lombok.Getter;
-
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 

@@ -41,7 +41,6 @@ public class BelongServiceTests {
     @Mock
     private MemberServiceFeignClient memberServiceFeignClient;
 
-
     @Test
     @DisplayName("프로젝트 팀원 권한 변경 성공")
     public void testPatchGradeSuccess() {
@@ -78,12 +77,14 @@ public class BelongServiceTests {
         Project project = new Project(1L,"project","test project", "image", "kea");
         Belong belong = new Belong(1L, GradeType.LEADER,1L,"harry", Status.ENABLED,project);
         Belong memberBelong = new Belong(2L, GradeType.MEMBER,2L,"nika", Status.ENABLED,project);
-
         List<Belong> belongList = new ArrayList<>();
+
         belongList.add(belong);
         belongList.add(memberBelong);
+
         GetMemberResDTO memberResDTO = new GetMemberResDTO();
-        when(belongRepository.findBelongsByProjectId(project.getId(), belong.getMemberId())).thenReturn(belongList);
+
+        when(belongRepository.findBelongByProjectId(project.getId())).thenReturn(belongList);
         when(memberServiceFeignClient.getMember(anyLong())).thenReturn(memberResDTO);
 
         // when
@@ -100,7 +101,9 @@ public class BelongServiceTests {
         Project project = new Project(1L,"project","test project", "image", "kea");
         Belong belong = new Belong(1L, GradeType.LEADER,1L,"harry", Status.ENABLED,project);
         List<ProjectTeamReqDTO> teamMemberList = new ArrayList<>();
+
         teamMemberList.add(new ProjectTeamReqDTO(2L,"harry",GradeType.MEMBER));
+
         when(projectRepository.findById(project.getId())).thenReturn(Optional.of(project));
         when(belongRepository.findByProjectIdAndMemberId(project.getId(), belong.getMemberId())).thenReturn(Optional.of(belong));
 
@@ -118,7 +121,9 @@ public class BelongServiceTests {
         Project project = new Project(1L,"project","test project", "image", "kea");
         Belong belong = new Belong(1L, GradeType.MEMBER,1L,"harry", Status.ENABLED,project);
         List<ProjectTeamReqDTO> teamMemberList = new ArrayList<>();
+
         teamMemberList.add(new ProjectTeamReqDTO(2L,"harry",GradeType.MEMBER));
+
         when(projectRepository.findById(project.getId())).thenReturn(Optional.of(project));
         when(belongRepository.findByProjectIdAndMemberId(project.getId(), belong.getMemberId())).thenReturn(Optional.of(belong));
 

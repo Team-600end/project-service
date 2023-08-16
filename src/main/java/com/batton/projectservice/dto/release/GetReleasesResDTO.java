@@ -4,7 +4,6 @@ import com.batton.projectservice.domain.Releases;
 import com.batton.projectservice.enums.PublishState;
 import lombok.Builder;
 import lombok.Getter;
-
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.util.List;
@@ -22,7 +21,7 @@ public class GetReleasesResDTO {
     private List<GetReleasesIssueResDTO> issueList;
 
     @Builder
-public GetReleasesResDTO(Long id, int versionMajor, int versionMinor, int versionPatch, String publishedDate, String releaseContent, PublishState isPublished, List<GetReleasesIssueResDTO> issueList) {
+    public GetReleasesResDTO(Long id, int versionMajor, int versionMinor, int versionPatch, String publishedDate, String releaseContent, PublishState isPublished, List<GetReleasesIssueResDTO> issueList) {
         this.id = id;
         this.versionMajor = versionMajor;
         this.versionMinor = versionMinor;

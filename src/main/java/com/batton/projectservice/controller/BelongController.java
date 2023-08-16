@@ -11,7 +11,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -30,7 +29,9 @@ public class BelongController {
      */
     @PostMapping("/{projectId}")
     @Operation(summary = "프로젝트 멤버 추가")
-    private BaseResponse<String> postPojectMember(@RequestHeader Long memberId, @PathVariable("projectId") Long projectId, @RequestBody List<ProjectTeamReqDTO> projectTeamReqDTOList) {
+    private BaseResponse<String> postPojectMember(@RequestHeader Long memberId,
+                                                  @PathVariable("projectId") Long projectId,
+                                                  @RequestBody List<ProjectTeamReqDTO> projectTeamReqDTOList) {
         String postPojectMemberRes = projectService.postProjectMember(memberId, projectId, projectTeamReqDTOList);
 
         return new BaseResponse<>(postPojectMemberRes);
@@ -44,7 +45,8 @@ public class BelongController {
      */
     @PatchMapping("/{belongId}")
     @Operation(summary = "프로젝트 멤버 삭제")
-    private BaseResponse<String> deleteTeamMember(@RequestHeader Long memberId, @PathVariable("belongId") Long belongId) {
+    private BaseResponse<String> deleteTeamMember(@RequestHeader Long memberId,
+                                                  @PathVariable("belongId") Long belongId) {
         String deleteTeamMemberRes = belongService.deleteTeamMember(memberId, belongId);
 
         return new BaseResponse<>(deleteTeamMemberRes);
@@ -64,7 +66,10 @@ public class BelongController {
             @ApiResponse(responseCode = "700", description = "유저에게 해당 권한이 없습니다."),
             @ApiResponse(responseCode = "703", description = "소속 아이디 값을 확인해주세요.")
     })
-    private BaseResponse<String> patchGrade(@RequestHeader Long memberId, @PathVariable("projectId") Long projectId, @PathVariable("belongId") Long belongId, @RequestBody GradeType grade) {
+    private BaseResponse<String> patchGrade(@RequestHeader Long memberId,
+                                            @PathVariable("projectId") Long projectId,
+                                            @PathVariable("belongId") Long belongId,
+                                            @RequestBody GradeType grade) {
         String patchGradeRes = belongService.patchGrade(memberId, projectId, belongId, grade);
 
         return new BaseResponse<>(patchGradeRes);
@@ -78,7 +83,8 @@ public class BelongController {
      */
     @GetMapping("/list/{projectId}")
     @Operation(summary = "프로젝트 멤버 리스트 조회")
-    private BaseResponse<List<GetBelongResDTO>> getBelongList(@RequestHeader Long memberId, @PathVariable("projectId") Long projectId) {
+    private BaseResponse<List<GetBelongResDTO>> getBelongList(@RequestHeader Long memberId,
+                                                              @PathVariable("projectId") Long projectId) {
         List<GetBelongResDTO> getBelongResDTOList = belongService.getBelongList(memberId, projectId);
 
         return new BaseResponse<>(getBelongResDTOList);

@@ -1,7 +1,6 @@
 package com.batton.projectservice.dto.project;
 
 import com.batton.projectservice.domain.Project;
-import com.batton.projectservice.enums.GradeType;
 import lombok.Builder;
 import lombok.Getter;
 

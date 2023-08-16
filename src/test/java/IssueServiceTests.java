@@ -1,7 +1,6 @@
 import com.batton.projectservice.client.MemberServiceFeignClient;
 import com.batton.projectservice.common.BaseException;
 import com.batton.projectservice.domain.*;
-import com.batton.projectservice.dto.client.GetMemberResDTO;
 import com.batton.projectservice.dto.issue.*;
 import com.batton.projectservice.enums.*;
 import com.batton.projectservice.repository.*;
@@ -12,7 +11,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,12 +25,6 @@ public class IssueServiceTests {
     private IssueService issueService;
     @Mock
     private ProjectRepository projectRepository;
-    @Mock
-    private ReportRepository reportRepository;
-    @Mock
-    private CommentRepository commentRepository;
-    @Mock
-    private MemberServiceFeignClient memberServiceFeignClient;
     @Mock
     private BelongRepository belongRepository;
     @Mock
@@ -101,8 +93,10 @@ public class IssueServiceTests {
         Issue issue1 = new Issue(1L, "issue1","content",IssueStatus.TODO,IssueTag.CHANGED,1,2,project,belong,"null");
         Issue issue2 = new Issue(2L,"issue2","content",IssueStatus.PROGRESS,IssueTag.FIXED,1,1,project,belong,"null");
         issueList.add(issue2);
+
         List<Belong> belongList = new ArrayList<>();
         belongList.add(belong);
+
         PatchIssueBoardReqDTO patchIssueBoardReqDTO = new PatchIssueBoardReqDTO(0,IssueStatus.TODO,IssueStatus.PROGRESS, IssueCase.COMMON);
 
         when(issueRepository.findById(issue1.getId())).thenReturn(Optional.of(issue1));

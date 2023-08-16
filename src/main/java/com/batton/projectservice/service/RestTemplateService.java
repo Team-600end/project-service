@@ -19,7 +19,9 @@ public class RestTemplateService<T> {
         return callApiEndpoint(url, HttpMethod.POST, httpHeaders, body, clazz);
     }
 
-    // 파일 업로드 API
+    /**
+     * 파일 업로드 API
+     */
     public ResponseEntity<T> uploadFile(String url, HttpHeaders headers, MultipartFile multipartFile, Class<T> clazz) {
         Resource body = multipartFile.getResource();
 

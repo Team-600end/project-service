@@ -1,6 +1,5 @@
 package com.batton.projectservice.dto.report;
 
-import com.batton.projectservice.domain.Report;
 import lombok.Builder;
 import lombok.Getter;
 

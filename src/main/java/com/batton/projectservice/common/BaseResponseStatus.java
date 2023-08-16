@@ -14,7 +14,6 @@ public enum BaseResponseStatus {
     /**
      * project-service - 700 ~ 1299
      */
-
     MEMBER_NO_AUTHORITY(false, 700, "유저에게 해당 권한이 없습니다."),
     PROJECT_INVALID_ID(false, 701, "프로젝트 아이디 값을 확인해주세요."),
     USER_INVALID_ID(false, 702, "유저 아이디 값을 확인해주세요."),
@@ -26,7 +25,6 @@ public enum BaseResponseStatus {
     RELEASE_NOTE_INVALID_ID(false, 708, "릴리즈 노트 아이디 값을 확인해주세요."),
     PROJECT_KEY_EXISTS(false, 708, "중복된 프로젝트 키입니다."),
     IMAGE_UPLOAD_ERROR(false, 710, "이미지 업로드에 실패하였습니다.");
-
 
     private final boolean isSuccess;
     private final int code;

@@ -5,7 +5,6 @@ import com.batton.projectservice.enums.IssueStatus;
 import com.batton.projectservice.enums.IssueTag;
 import lombok.Builder;
 import lombok.Getter;
-
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 

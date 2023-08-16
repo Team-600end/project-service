@@ -1,7 +1,6 @@
 package com.batton.projectservice.dto.project;
 
 import com.batton.projectservice.domain.Project;
-import com.batton.projectservice.domain.Releases;
 import com.batton.projectservice.dto.client.GetMemberResDTO;
 import lombok.Builder;
 import lombok.Getter;

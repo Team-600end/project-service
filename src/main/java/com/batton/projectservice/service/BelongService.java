@@ -11,6 +11,7 @@ import com.batton.projectservice.mq.RabbitProducer;
 import com.batton.projectservice.mq.dto.NoticeMessage;
 import com.batton.projectservice.repository.BelongRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import java.util.Optional;
 import static com.batton.projectservice.common.BaseResponseStatus.*;
 import static com.batton.projectservice.enums.NoticeType.*;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class BelongService {
@@ -54,6 +56,7 @@ public class BelongService {
                                     .receiverId(memberBelong.get().getMemberId())
                                     .noticeContent("[" + memberBelong.get().getProject().getProjectTitle() + "] " + memberBelong.get().getNickname() + "님의 등급이 " + grade + " 등급으로 변경되었습니다.")
                                     .build());
+                    log.info("프로젝트 팀원 권한 변경 : 유저 " + memberId + " 님이 프로젝트 " + projectId + " 의 유저 " + memberBelong.get().getMemberId() + " 님의 등급을 " + grade + " 등급으로 변경했습니다.");
                 } else {
                     throw new BaseException(BELONG_INVALID_ID);
                 }
@@ -71,8 +74,12 @@ public class BelongService {
     @Transactional
     public List<GetBelongResDTO> getBelongList(Long memberId, Long projectId) {
         List<Belong> belongList = belongRepository.findBelongByProjectId(projectId);
+        Optional<Belong> myBelong = belongRepository.findByProjectIdAndMemberId(projectId, memberId);
         List<GetBelongResDTO> getBelongResDTOList = new ArrayList<>();
 
+        if(myBelong.isEmpty() || myBelong.get().getStatus().equals(Status.DISABLED)) {
+            throw new BaseException(BELONG_INVALID_ID);
+        }
         for (Belong belong : belongList) {
             if (belong.getStatus().equals(Status.ENABLED)) {
                 GetMemberResDTO getMemberResDTO = memberServiceFeignClient.getMember(belong.getMemberId());
@@ -107,6 +114,7 @@ public class BelongService {
                             .receiverId(belongId)
                             .noticeContent("[" + belong.get().getProject().getProjectTitle() + "] " + belong.get().getNickname() + "님이 프로젝트에서 제외되었습니다.")
                             .build());
+            log.info("프로젝트 팀원 삭제 : 유저 " + memberId + " 님이 프로젝트 " + belong.get().getProject().getId() + " 의 유저 " + belong.get().getMemberId() + " 님을 프로젝트에서 제외시켰습니다.");
         } else {
             throw new BaseException(BELONG_INVALID_ID);
         }

@@ -8,7 +8,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -26,7 +25,7 @@ public class ObjectStorageService {
     private final String STORAGE_URL = "https://objectstorage.kr-gov-central-1.kakaoicloud-kr-gov.com/v1/72a1e5bc92824b1e85f86463b972eb74/batton/IMAGE";
     private final RestTemplateService restTemplateService;
 
-    public String uploadFile(MultipartFile multipartFile){
+    public String uploadFile(MultipartFile multipartFile) {
         String fileURL = getFileURL(multipartFile, STORAGE_URL);
         HttpHeaders headers = getApiTokenHeader();
         HttpEntity<String> response;
@@ -39,19 +38,20 @@ public class ObjectStorageService {
         return fileURL;
     }
 
-    private String getFileURL(MultipartFile multipartFile, String storageURL){
+    private String getFileURL(MultipartFile multipartFile, String storageURL) {
         StringBuilder sb = new StringBuilder(storageURL);
         String fileName = UUID.randomUUID() + "-" + multipartFile.getOriginalFilename();
         String fileURL = sb.append("/" + fileName).toString();
 
         return fileURL;
     }
-    private JSONObject getApiTokenBodyObject(){
+
+    private JSONObject getApiTokenBodyObject() {
         JSONObject bodyObject = new JSONObject();
         JSONObject authObject = new JSONObject();
         JSONObject identityObject = new JSONObject();
-        List<String> methodList = new ArrayList<>();
         JSONObject credentialObject = new JSONObject();
+        List<String> methodList = new ArrayList<>();
 
         methodList.add("application_credential");
         identityObject.put("methods", methodList);
@@ -64,13 +64,16 @@ public class ObjectStorageService {
         return bodyObject;
     }
 
+    /**
+     * API 인증 토큰 발급받기
+     */
     // API 인증 토큰 발급받기
-    private HttpHeaders getApiTokenHeader(){
+    private HttpHeaders getApiTokenHeader() {
         JSONObject bodyObject = getApiTokenBodyObject();
         HttpEntity<String> response = restTemplateService.post(API_TOKEN_URL, HttpHeaders.EMPTY, bodyObject, String.class);
         HttpHeaders responseHeaders = response.getHeaders();
-        String api_token = responseHeaders.getFirst("X-Subject-Token");
         HttpHeaders apiTokenHeader = new HttpHeaders();
+        String api_token = responseHeaders.getFirst("X-Subject-Token");
 
         apiTokenHeader.add("X-Auth-Token", api_token);
 
