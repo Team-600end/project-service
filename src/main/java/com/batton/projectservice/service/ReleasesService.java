@@ -320,7 +320,7 @@ public class ReleasesService {
                     GetProjectReleasesListResDTO getProjectReleasesListResDTO = GetProjectReleasesListResDTO.toDTO(release.getId(), versionChanged, release.getVersionMajor(), release.getVersionMinor(), release.getVersionPatch(), createdDate, publishState, issueList);
                     getProjectReleasesListResDTOList.add(getProjectReleasesListResDTO);
                 }
-                Optional<Releases> latestRelease = releasesRepository.findFirstByPublishStateOrderByUpdatedAtDesc(PublishState.PUBLISH);
+                Optional<Releases> latestRelease = releasesRepository.findFirstByProjectIdAndPublishStateOrderByUpdatedAtDesc(projectId, PublishState.PUBLISH);
                 GetReleasesAllResDTO getReleasesAllResDTO;
 
                 if(latestRelease.isPresent()) {

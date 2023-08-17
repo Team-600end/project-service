@@ -67,6 +67,7 @@ public class ProjectController {
                                               @RequestPart(value = "projectContent", required = false) String projectContent,
                                               @RequestPart(value = "projectImage", required = false) MultipartFile projectImage,
                                               @RequestPart(value = "projectKey", required = false) String projectKey) {
+        System.out.println(projectImage);
         PatchProjectReqDTO patchProjectReqDTO = PatchProjectReqDTO.builder()
                 .projectTitle(projectTitle)
                 .projectContent(projectContent)

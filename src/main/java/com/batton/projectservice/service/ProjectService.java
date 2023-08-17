@@ -133,7 +133,7 @@ public class ProjectService {
     public String patchProject(Long projectId, Long memberId, PatchProjectReqDTO patchProjectReqDTO) {
         Optional<Belong> belong = belongRepository.findByProjectIdAndMemberId(projectId, memberId);
         String url;
-
+        System.out.println(patchProjectReqDTO.getProjectImage());
         // 소속 유저 확인
         if (belong.isPresent() && belong.get().getStatus().equals(Status.ENABLED))  {
             // 수정 권한 확인
