@@ -2,9 +2,11 @@ package com.batton.projectservice.dto.project;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 @Getter
+@NoArgsConstructor
 public class PatchProjectReqDTO {
     private String projectTitle;
     private String projectContent;
