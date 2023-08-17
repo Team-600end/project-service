@@ -3,8 +3,10 @@ package com.batton.projectservice.dto.project;
 import com.batton.projectservice.domain.Project;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class GetProjectInfoResDTO {
     private String projectTitle;
     private String projectContent;

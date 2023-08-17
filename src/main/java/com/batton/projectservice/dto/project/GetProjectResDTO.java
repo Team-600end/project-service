@@ -4,10 +4,13 @@ import com.batton.projectservice.domain.Project;
 import com.batton.projectservice.enums.GradeType;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 @Getter
+@NoArgsConstructor
 public class GetProjectResDTO {
     private Long projectId;
     private String projectTitle;

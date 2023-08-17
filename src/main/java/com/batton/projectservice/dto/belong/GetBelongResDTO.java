@@ -5,10 +5,13 @@ import com.batton.projectservice.dto.client.GetMemberResDTO;
 import com.batton.projectservice.enums.GradeType;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 @Getter
+@NoArgsConstructor
 public class GetBelongResDTO {
     private Long belongId;
     @Enumerated(EnumType.STRING)

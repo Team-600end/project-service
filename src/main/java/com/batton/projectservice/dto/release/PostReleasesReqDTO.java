@@ -5,9 +5,12 @@ import com.batton.projectservice.domain.Releases;
 import com.batton.projectservice.enums.PublishState;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 @Getter
+@NoArgsConstructor
 public class PostReleasesReqDTO {
     private Long projectId;
     private int versionMajor;

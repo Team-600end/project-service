@@ -3,8 +3,10 @@ package com.batton.projectservice.dto.report;
 import com.batton.projectservice.domain.Report;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class GetAddReportResDTO {
     private Long reportId;
     private String issueTitle;

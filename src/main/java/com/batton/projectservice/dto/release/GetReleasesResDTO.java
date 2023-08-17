@@ -4,11 +4,14 @@ import com.batton.projectservice.domain.Releases;
 import com.batton.projectservice.enums.PublishState;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.util.List;
 
 @Getter
+@NoArgsConstructor
 public class GetReleasesResDTO {
     private Long id;
     private int versionMajor;

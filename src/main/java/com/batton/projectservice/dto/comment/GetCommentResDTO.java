@@ -6,10 +6,13 @@ import com.batton.projectservice.enums.CommentType;
 import com.batton.projectservice.enums.GradeType;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 @Getter
+@NoArgsConstructor
 public class GetCommentResDTO {
     private String commentContent;
     @Enumerated(EnumType.STRING)

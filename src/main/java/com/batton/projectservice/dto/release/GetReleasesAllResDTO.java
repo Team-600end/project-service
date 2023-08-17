@@ -3,10 +3,12 @@ package com.batton.projectservice.dto.release;
 import com.batton.projectservice.domain.Releases;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Getter
+@NoArgsConstructor
 public class GetReleasesAllResDTO {
     private int latestVersionMajor;
     private int latestVersionMinor;

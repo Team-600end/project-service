@@ -5,8 +5,10 @@ import com.batton.projectservice.domain.RegisteredIssue;
 import com.batton.projectservice.domain.Releases;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class PostRegisteredIssueReqDTO {
     private int startPosisition;
     private int endPosition;

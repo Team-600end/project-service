@@ -2,9 +2,12 @@ package com.batton.projectservice.dto.release;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 @Getter
+@NoArgsConstructor
 public class PatchReleasesReqDTO {
     private int versionMajor;
     private int versionMinor;

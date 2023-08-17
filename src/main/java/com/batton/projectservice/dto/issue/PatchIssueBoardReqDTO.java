@@ -4,10 +4,13 @@ import com.batton.projectservice.enums.IssueCase;
 import com.batton.projectservice.enums.IssueStatus;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 @Getter
+@NoArgsConstructor
 public class PatchIssueBoardReqDTO {
     private int seqNum;
     @Enumerated(EnumType.STRING)

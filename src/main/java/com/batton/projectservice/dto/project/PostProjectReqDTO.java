@@ -3,9 +3,12 @@ package com.batton.projectservice.dto.project;
 import com.batton.projectservice.domain.Project;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 @Getter
+@NoArgsConstructor
 public class PostProjectReqDTO {
     private String projectTitle;
     private String projectKey;

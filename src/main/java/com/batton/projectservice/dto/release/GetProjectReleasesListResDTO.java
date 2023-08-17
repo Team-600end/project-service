@@ -3,9 +3,12 @@ package com.batton.projectservice.dto.release;
 import com.batton.projectservice.enums.PublishState;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 @Getter
+@NoArgsConstructor
 public class GetProjectReleasesListResDTO {
     private Long releasesId;
     private String versionChanged;

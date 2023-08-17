@@ -4,10 +4,13 @@ import com.batton.projectservice.domain.Issue;
 import com.batton.projectservice.enums.IssueTag;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 @Getter
+@NoArgsConstructor
 public class GetReleasesIssueResDTO {
     @Enumerated(EnumType.STRING)
     private IssueTag issueTag;

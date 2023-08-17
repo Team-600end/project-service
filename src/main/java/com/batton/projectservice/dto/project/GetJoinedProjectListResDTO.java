@@ -4,8 +4,10 @@ import com.batton.projectservice.domain.Project;
 import com.batton.projectservice.dto.client.GetMemberResDTO;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class GetJoinedProjectListResDTO {
     private Long projectId;
     private String projectKey;
