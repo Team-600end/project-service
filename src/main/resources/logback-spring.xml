@@ -62,7 +62,7 @@
 
     <!-- ELK(LOGSTASH) -->
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>10.0.0.56:5000</destination>
+        <destination>61.109.214.47:10010</destination>
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
         </encoder>
     </appender>

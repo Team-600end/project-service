@@ -77,7 +77,7 @@ public class BelongService {
         Optional<Belong> myBelong = belongRepository.findByProjectIdAndMemberId(projectId, memberId);
         List<GetBelongResDTO> getBelongResDTOList = new ArrayList<>();
 
-        if(myBelong.isEmpty() || myBelong.get().getStatus().equals(Status.DISABLED)) {
+        if (myBelong.isEmpty() || myBelong.get().getStatus().equals(Status.DISABLED)) {
             throw new BaseException(BELONG_INVALID_ID);
         }
         for (Belong belong : belongList) {

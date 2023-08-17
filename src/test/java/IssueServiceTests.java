@@ -29,6 +29,8 @@ public class IssueServiceTests {
     private BelongRepository belongRepository;
     @Mock
     private IssueRepository issueRepository;
+    @Mock
+    private ReportRepository reportRepository;
 
     @Test
     @DisplayName("이슈 생성 성공")
@@ -37,15 +39,18 @@ public class IssueServiceTests {
         Project project = new Project(1L,"project","test project", "image", "kea");
         Belong belong = new Belong(1L, GradeType.LEADER,1L,"harry", Status.ENABLED,project);
         List<Issue> issueList = new ArrayList<>();
-        PostIssueReqDTO postIssueReqDTO = new PostIssueReqDTO(project.getId(),"issue","content", IssueTag.FIXED);
+        PostIssueReqDTO postIssueReqDTO = new PostIssueReqDTO(belong.getId(), project.getId(),"issue","content", IssueTag.FIXED);
         Issue issue = new Issue(1L,"issue","content",IssueStatus.TODO,IssueTag.FIXED,3,2,project,belong,"null");
+        Report report = new Report(1L, "contents",issue);
 
         when(projectRepository.findById(project.getId())).thenReturn(Optional.of(project));
         when(belongRepository.findByProjectIdAndMemberId(project.getId(), belong.getMemberId())).thenReturn(Optional.of(belong));
         when(issueRepository.findByIssueStatusOrderByIssueSeq(IssueStatus.TODO)).thenReturn(issueList);
+        when(belongRepository.findById(belong.getId())).thenReturn(Optional.of(belong));
         when(issueRepository.existsByProjectId(project.getId())).thenReturn(false);
         when(issueRepository.save(any(Issue.class))).thenReturn(issue);
         when(issueRepository.findById(issue.getId())).thenReturn(Optional.of(issue));
+        when(reportRepository.save(any(Report.class))).thenReturn(report);
 
         // when
         Long issueId = issueService.postIssue(belong.getMemberId(), postIssueReqDTO);
@@ -60,7 +65,7 @@ public class IssueServiceTests {
         // given
         Project project = new Project(1L,"project","test project", "image", "kea");
         Belong belong = new Belong(1L, GradeType.LEADER,1L,"harry", Status.ENABLED,project);
-        PostIssueReqDTO postIssueReqDTO = new PostIssueReqDTO(project.getId(),"issue","content", IssueTag.FIXED);
+        PostIssueReqDTO postIssueReqDTO = new PostIssueReqDTO(belong.getId(), project.getId(),"issue","content", IssueTag.FIXED);
 
         when(projectRepository.findById(project.getId())).thenReturn(Optional.empty());
 
@@ -74,7 +79,7 @@ public class IssueServiceTests {
         // given
         Project project = new Project(1L,"project","test project", "image", "kea");
         Belong belong = new Belong(1L, GradeType.LEADER,1L,"harry", Status.ENABLED,project);
-        PostIssueReqDTO postIssueReqDTO = new PostIssueReqDTO(project.getId(),"issue","content", IssueTag.FIXED);
+        PostIssueReqDTO postIssueReqDTO = new PostIssueReqDTO(belong.getId(), project.getId(),"issue","content", IssueTag.FIXED);
 
         when(projectRepository.findById(project.getId())).thenReturn(Optional.of(project));
         when(belongRepository.findByProjectIdAndMemberId(project.getId(), belong.getMemberId())).thenReturn(Optional.empty());

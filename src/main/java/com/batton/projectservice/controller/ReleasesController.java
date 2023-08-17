@@ -39,7 +39,7 @@ public class ReleasesController {
      * @param memberId 릴리즈 노트 발행하는 유저 아이디
      * @param releaseId 발행할 릴리즈 노트 아이디
      */
-    @PatchMapping("/{releaseId}/publish")
+    @PatchMapping("/{releaseId}/status")
     @Operation(summary = "릴리즈노트 발행 요청")
     @ApiResponses({
             @ApiResponse(responseCode = "700", description = "유저에게 해당 권한이 없습니다."),
@@ -131,7 +131,7 @@ public class ReleasesController {
      * @param memberId 릴리즈 노트 수정하는 유저 아이디
      * @param releaseId 조회할 릴리즈 노트 아이디
      */
-    @GetMapping("/edit/{releaseId}")
+    @GetMapping("/editor/{releaseId}")
     @Operation(summary = "릴리즈노트 수정용 상세 조회 요청")
     @ApiResponses({
             @ApiResponse(responseCode = "708", description = "릴리즈 노트 아이디 값을 확인해주세요.")

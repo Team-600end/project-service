@@ -8,6 +8,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -50,7 +52,6 @@ public class ProjectController {
      * 프로젝트 수정 API
      * @param memberId 프로젝트 수정 작업을하는 유저 아이디
      * @param projectId 수정할 프로젝트 아이디
-     * @param patchProjectReqDTO 프로젝트 수정 요청 PatchProjectReqDTO
      * @return String
      */
     @PatchMapping("/{projectId}")
@@ -62,7 +63,15 @@ public class ProjectController {
     })
     private BaseResponse<String> patchProject(@RequestHeader Long memberId,
                                               @PathVariable("projectId") Long projectId,
-                                              @RequestBody PatchProjectReqDTO patchProjectReqDTO) {
+                                              @RequestPart(value = "projectTitle", required = false) String projectTitle,
+                                              @RequestPart(value = "projectContent", required = false) String projectContent,
+                                              @RequestPart(value = "projectImage", required = false) MultipartFile projectImage,
+                                              @RequestPart(value = "projectKey", required = false) String projectKey) {
+        PatchProjectReqDTO patchProjectReqDTO = PatchProjectReqDTO.builder()
+                .projectTitle(projectTitle)
+                .projectContent(projectContent)
+                .projectImage(projectImage)
+                .projectKey(projectKey).build();
         String patchProjectRes = projectService.patchProject(memberId, projectId, patchProjectReqDTO);
 
         return new BaseResponse<>(patchProjectRes);
@@ -126,9 +135,9 @@ public class ProjectController {
     /**
      * 참여 중인 프로젝트 리스트 조회 API
      * @param memberId 프로젝트 조회 작업을하는 유저 아이디
-     * @retur List<GetJoinedProjectListResDTO>
+     * @return List<GetJoinedProjectListResDTO>
      */
-    @GetMapping("/joinedList")
+    @GetMapping("/joined-list")
     @Operation(summary = "참여 중인 프로젝트 리스트 조회")
     @ApiResponses({
             @ApiResponse(responseCode = "707", description = "참여한 프로젝트가 없습니다.")

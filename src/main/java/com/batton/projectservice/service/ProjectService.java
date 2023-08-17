@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +40,8 @@ public class ProjectService {
     private final IssueRepository issueRepository;
     private final MemberServiceFeignClient memberServiceFeignClient;
     private final RabbitProducer rabbitProducer;
+    private final ObjectStorageService objectStorageService;
+
 
     /**
      * 프로젝트 생성 API
@@ -95,6 +98,9 @@ public class ProjectService {
             if (leaderBelong.isPresent() && leaderBelong.get().getGrade() == GradeType.LEADER) {
                 // 팀원 추가
                 for (ProjectTeamReqDTO projectTeamReqDTO : teamMemberList) {
+                    Optional<Belong> memberBelong = belongRepository.findByProjectIdAndMemberId(projectId, projectTeamReqDTO.getMemberId());
+                    if (memberBelong.isPresent()) continue;
+
                     Belong belong = ProjectTeamReqDTO.toEntity(project.get(), projectTeamReqDTO, Status.ENABLED);
 
                     belongRepository.save(belong);
@@ -126,6 +132,7 @@ public class ProjectService {
     @Transactional
     public String patchProject(Long projectId, Long memberId, PatchProjectReqDTO patchProjectReqDTO) {
         Optional<Belong> belong = belongRepository.findByProjectIdAndMemberId(projectId, memberId);
+        String url;
 
         // 소속 유저 확인
         if (belong.isPresent() && belong.get().getStatus().equals(Status.ENABLED))  {
@@ -137,7 +144,14 @@ public class ProjectService {
 
             // 프로젝트 존재 유무 확인
             if (project.isPresent()) {
-                project.get().update(patchProjectReqDTO.getProjectTitle(), patchProjectReqDTO.getProjectContent(), patchProjectReqDTO.getProjectImage());
+                // 프로젝트 정보만 수정 시
+                if (patchProjectReqDTO.getProjectImage().isEmpty()) {
+                    url = "프로젝트 수정 되었습니다.";
+                    project.get().updateInfo(patchProjectReqDTO.getProjectTitle(), patchProjectReqDTO.getProjectContent());
+                } else {
+                    url = objectStorageService.uploadFile(patchProjectReqDTO.getProjectImage());
+                    project.get().update(patchProjectReqDTO.getProjectTitle(), patchProjectReqDTO.getProjectContent(), url);
+                }
             } else {
                 throw new BaseException(PROJECT_INVALID_ID);
             }
@@ -145,7 +159,7 @@ public class ProjectService {
             throw new BaseException(BELONG_INVALID_ID);
         }
 
-        return "프로젝트 수정 성공";
+        return url;
     }
 
     /**

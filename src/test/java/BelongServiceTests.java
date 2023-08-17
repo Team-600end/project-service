@@ -85,6 +85,7 @@ public class BelongServiceTests {
         GetMemberResDTO memberResDTO = new GetMemberResDTO();
 
         when(belongRepository.findBelongByProjectId(project.getId())).thenReturn(belongList);
+        when(belongRepository.findByProjectIdAndMemberId(project.getId(), belong.getMemberId())).thenReturn(Optional.of(belong));
         when(memberServiceFeignClient.getMember(anyLong())).thenReturn(memberResDTO);
 
         // when

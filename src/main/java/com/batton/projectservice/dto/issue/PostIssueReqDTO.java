@@ -12,6 +12,7 @@ import javax.persistence.Enumerated;
 
 @Getter
 public class PostIssueReqDTO {
+    private Long belongId;
     private Long projectId;
     private String issueTitle;
     private String issueContent;
@@ -19,7 +20,8 @@ public class PostIssueReqDTO {
     private IssueTag issueTag;
 
     @Builder
-    public PostIssueReqDTO(Long projectId, String issueTitle, String issueContent, IssueTag issueTag) {
+    public PostIssueReqDTO(Long belongId, Long projectId, String issueTitle, String issueContent, IssueTag issueTag) {
+        this.belongId = belongId;
         this.projectId = projectId;
         this.issueTitle = issueTitle;
         this.issueContent = issueContent;

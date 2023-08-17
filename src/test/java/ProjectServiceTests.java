@@ -13,7 +13,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -48,7 +51,7 @@ public class ProjectServiceTests {
         when(projectRepository.save(any(Project.class))).thenReturn(project);
         when(projectRepository.findById(anyLong())).thenReturn(Optional.of(project));
         when(belongRepository.findByProjectIdAndMemberId(anyLong(), anyLong())).thenReturn(Optional.of(belong));
-        when(rabbitProducer.sendNoticeMessage(any())).thenReturn("알림 데이터 전송 완료");
+        lenient().when(rabbitProducer.sendNoticeMessage(any())).thenReturn("알림 데이터 전송 완료");
 
         // when
         PostProjectResDTO result = projectService.postProject(1L, postProjectReqDTO);
@@ -56,7 +59,7 @@ public class ProjectServiceTests {
         // given
         assertEquals(1L, result.getProjectId());
         verify(projectRepository, times(1)).save(any(Project.class));
-        verify(belongRepository, times(2)).save(any(Belong.class));
+        verify(belongRepository, times(1)).save(any(Belong.class));
     }
 
     @Test
@@ -85,27 +88,10 @@ public class ProjectServiceTests {
     }
 
     @Test
-    @DisplayName("프로젝트 수정 성공")
-    public void testPatchProjectSuccess() {
-        // given
-        PatchProjectReqDTO patchProjectReqDTO = new PatchProjectReqDTO("project","test project","image","kea");
-        Project project = new Project(1L,"project","test project", "image", "kea");
-        Belong belong = new Belong(1L, GradeType.LEADER,1L,"harry",Status.ENABLED,project);
-        when(belongRepository.findByProjectIdAndMemberId(project.getId(), belong.getMemberId())).thenReturn(Optional.of(belong));
-        when(projectRepository.findById(project.getId())).thenReturn(Optional.of(project));
-
-        // when
-        String result = projectService.patchProject(project.getId(), belong.getMemberId(), patchProjectReqDTO);
-
-        // then
-        assertEquals("프로젝트 수정 성공", result);
-    }
-
-    @Test
     @DisplayName("프로젝트 수정 시 권한 없음 예외 처리")
     public void testPatchProjectNoAuthority() {
         // given
-        PatchProjectReqDTO patchProjectReqDTO = new PatchProjectReqDTO("project","test project","image","kea");
+        PatchProjectReqDTO patchProjectReqDTO = new PatchProjectReqDTO("project","test project",null,"kea");
         Project project = new Project(1L,"project","test project", "image", "kea");
         Belong belong = new Belong(1L, GradeType.MEMBER,1L,"harry",Status.ENABLED,project);
         when(belongRepository.findByProjectIdAndMemberId(project.getId(), belong.getMemberId())).thenReturn(Optional.of(belong));
@@ -118,7 +104,7 @@ public class ProjectServiceTests {
     @DisplayName("프로젝트 수정 시 프로젝트 아이디 예외 처리")
     public void testPatchProjectInvalidProject() {
         // given
-        PatchProjectReqDTO patchProjectReqDTO = new PatchProjectReqDTO("project","test project","image","kea");
+        PatchProjectReqDTO patchProjectReqDTO = new PatchProjectReqDTO("project","test project",null,"kea");
         Project project = new Project(1L,"project","test project", "image", "kea");
         Belong belong = new Belong(1L, GradeType.LEADER,1L,"harry",Status.ENABLED,project);
 

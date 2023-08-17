@@ -60,15 +60,18 @@ public class IssueService {
             // 소속 유저 존재 여부 검증
             if (belong.isPresent() && belong.get().getStatus().equals(Status.ENABLED)) {
                 Issue issue;
-
+                Optional<Belong> memberBelong = belongRepository.findById(postIssueReqDTO.getBelongId());
+                if (!memberBelong.isPresent()) {
+                    throw new BaseException(BELONG_INVALID_ID);
+                }
                 // TO DO 상태의 이슈의 가장 마지막에 위치
                 if (!issueRepository.existsByProjectId(project.get().getId())) {
-                    issue = postIssueReqDTO.toEntity(project.get(), belong.get(), postIssueReqDTO, TODO, lastIssueSeq + 1, 1);
+                    issue = postIssueReqDTO.toEntity(project.get(), memberBelong.get(), postIssueReqDTO, TODO, lastIssueSeq + 1, 1);
                 } else {
                     Issue lateIssue = issueRepository.findTopByProjectIdOrderByCreatedAtDesc(project.get().getId());
                     int key = lateIssue.getIssueKey() + 1;
 
-                    issue = postIssueReqDTO.toEntity(project.get(), belong.get(), postIssueReqDTO, TODO, lastIssueSeq + 1, key);
+                    issue = postIssueReqDTO.toEntity(project.get(), memberBelong.get(), postIssueReqDTO, TODO, lastIssueSeq + 1, key);
                 }
                 // 이슈 생성
                 Long issueId = issueRepository.save(issue).getId();

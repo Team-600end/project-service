@@ -13,7 +13,6 @@ import java.util.Optional;
 public interface BelongRepository extends JpaRepository<Belong, Long> {
     Optional<Belong> findByProjectIdAndMemberId(Long projectId, Long memberId);
 
-    // 특정 유저 제외 프로젝트 소속 유저 조회
     List<Belong> findBelongByProjectId(Long projectId);
 
     Optional<Belong> findById(Long belongId);

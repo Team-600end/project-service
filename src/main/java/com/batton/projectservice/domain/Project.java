@@ -40,4 +40,9 @@ public class Project extends BaseEntity {
         this.projectContent = projectContent;
         this.projectImage = projectImage;
     }
+
+    public void updateInfo(String projectTitle, String projectContent) {
+        this.projectTitle = projectTitle;
+        this.projectContent = projectContent;
+    }
 }
